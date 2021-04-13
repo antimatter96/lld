@@ -1,0 +1,17 @@
+{
+  "name": "auditor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/cookie": "^11.0.2",
+    "@hapi/hapi": "^20.1.2",
+    "@hapi/hoek": "^9.1.1",
+    "@hapi/yar": "^10.1.1"
+  }
+}

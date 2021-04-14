@@ -1,6 +1,6 @@
 package processing
 
-import "lld/dunzo/models/common.go"
+import "lld/dunzo/models/common"
 
 // Stratergy takes the current ingredients
 // and an array of wanted beverages

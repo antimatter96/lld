@@ -2,7 +2,7 @@ package models
 
 import (
 	"fmt"
-	"lld/dunzo/models/common.go"
+	"lld/dunzo/models/common"
 	"lld/dunzo/processing"
 	"lld/dunzo/utils"
 	"sort"

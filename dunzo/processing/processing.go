@@ -1,6 +1,6 @@
 package processing
 
-import "lld/dunzo/models/common.go"
+import "lld/dunzo/models/common"
 
 func ConsumeIngredients(source, bev common.IngredientQuantity) common.IngredientQuantity {
 	for k, v := range bev {

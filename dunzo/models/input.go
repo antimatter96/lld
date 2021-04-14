@@ -1,6 +1,6 @@
 package models
 
-import "lld/dunzo/models/common.go"
+import "lld/dunzo/models/common"
 
 type JsonInput struct {
 	InputMachine `json:"machine"`

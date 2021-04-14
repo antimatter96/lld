@@ -1,7 +1,7 @@
 package processing
 
 import (
-	"lld/dunzo/models/common.go"
+	"lld/dunzo/models/common"
 	"sort"
 )
 

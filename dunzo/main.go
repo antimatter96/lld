@@ -3,40 +3,24 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"lld/dunzo/models"
+	"lld/dunzo/processing"
 )
 
 func main() {
-	fmt.Println("<==>")
-
-	newjson := &Input{}
+	newjson := &models.JsonInput{}
 	err := json.Unmarshal([]byte(input), &newjson)
 	if err != nil {
 		panic(err)
 	}
 
-	for k, v := range newjson.Machine.Beverages {
-		fmt.Println(k, v)
-	}
+	m := &models.Machine{}
 
-	fmt.Println("<==>")
-
-	m := &Machine{}
+	m.InitWithJson(newjson.InputMachine)
 
 	fmt.Println(m)
 
-	m.Init(newjson.Machine)
+	m.ServeJson(processing.Common, newjson.Beverages)
 
 	fmt.Println(m)
-
-	m.TryServe(newjson.Machine.Beverages)
-}
-
-type inp struct {
-	mp map[string]map[string]interface{}
-}
-
-type iMachine struct {
-	Outlets int
-
-	Items map[string]int
 }

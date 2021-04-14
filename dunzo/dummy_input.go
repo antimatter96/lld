@@ -42,23 +42,3 @@ var input = `{
     }
   }
 }`
-
-type Input struct {
-	Machine InputMachine `json:"machine"`
-}
-type Outlets struct {
-	CountN int `json:"count_n"`
-}
-
-type Ingredients map[string]int
-type Beverage struct {
-	Name        string
-	Ingredients Ingredients
-}
-type Beverages map[string]Ingredients
-
-type InputMachine struct {
-	Outlets            Outlets     `json:"outlets"`
-	TotalItemsQuantity Ingredients `json:"total_items_quantity"`
-	Beverages          Beverages   `json:"beverages"`
-}

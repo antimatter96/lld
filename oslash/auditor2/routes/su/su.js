@@ -6,30 +6,78 @@ module.exports = async function (fastify, opts) {
 
   fastify.post('/actions/approve', async function (request, reply) {
     //console.log(request.body);
+    let id = parseInt(request.body.jobId);
+
+    if (isNaN(id) ) {
+      reply.code(400).send({
+        status: "ERROR",
+        error: "Need a id",
+      })
+      return
+    }
+
     try {
       await fastify.models.AuditLog.create({
-        'action': "CREATE",
-        'content': JSON.stringify(request.body.content),
-        'userId': request.body.userId,
+        'action': "APPROVE",
+        'content': id,
+        'creatorId': request.body.userId,
       })
 
-      let params = {
-        userId : request.body.userId,
-        content : JSON.stringify(request.body.content),
+      let dj = await fastify.models.DelayedJob.findByPk(id);
+
+      if (dj == null) {
+        reply.code(404).send({
+          status: "ERROR",
+          error: "Not found",
+        })
+        return
       }
 
-      let post = await fastify.models.Posts.create(params)
+      if (dj.state != "pending") {
+        reply.code(400).send({
+          status: "ERROR",
+          error: "State is " + dj.state,
+        })
+        return
+      }
 
-      await fastify.models.AuditLog.create({
-        'action': "CREATED",
-        'postId': post.id,
-        'userId': request.body.userId,
+      await dj.update({
+        state: "approved",
+        approvedAt: new Date()
       })
 
-      return {
+      console.log(dj.dataValues);
+
+      switch (dj.dataValues.action) {
+        case "CREATE": {
+          console.log(dj.action);
+
+          let post = await fastify.models.Post.create({
+            'userId' : dj.dataValues.onBehalOfId,
+            'content': dj.dataValues.content
+          })
+
+          await dj.update({
+            state: "done",
+            approvedAt: new Date()
+          })
+
+          reply.code(200).send({
+            status: "SUCCESS",
+            data: post.dataValues
+          });
+
+          break;
+        }
+        default:
+          break;
+      }
+
+      reply.code(200).send({
         status: "SUCCESS",
-        data : post.dataValues
-      }
+        data: "log",
+      });
+
     } catch (error) {
       return {
         status: "ERROR",

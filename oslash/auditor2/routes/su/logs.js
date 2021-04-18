@@ -1,7 +1,8 @@
 module.exports = async function (fastify, opts) {
   fastify.get('/logs/:id', async function (request, reply) {
+    let id = parseInt(request.params.id);
 
-    if (request.params.id == null || request.params.id == '' ) {
+    if (isNaN(id) ) {
       reply.code(400).send({
         status: "ERROR",
         error: "Need a id",
@@ -10,16 +11,6 @@ module.exports = async function (fastify, opts) {
     }
 
     try {
-      let id = parseInt(request.params.id);
-
-      if (isNaN(id)) {
-        reply.code(400).send({
-          status: "ERROR",
-          error: "Not a valid id",
-        })
-        return
-      }
-
       let log = await fastify.models.AuditLog.findByPk(id);
 
       if (log == null) {

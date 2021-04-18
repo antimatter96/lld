@@ -5,14 +5,16 @@ class DelayedJob extends Model { }
 async function init(sequelize) {
   return new Promise((resolve, _reject) => {
     DelayedJob.init({
-      approved: {
+      state: {
         type: DataTypes.ENUM("pending", "rejected",
           "approved", "done"),
         defaultValue: "pending"
       },
       approvedAt: DataTypes.TIME,
       content: DataTypes.STRING,
-      action: {type:DataTypes.STRING, allowNull:false},
+      action: { 
+        type:DataTypes.STRING, allowNull:false
+      },
     }, {
       sequelize, modelName: 'delayed_job'
     });

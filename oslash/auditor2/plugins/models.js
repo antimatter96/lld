@@ -5,8 +5,6 @@ const models = require('../models/index')
 
 function fastifyMysql (fastify, options, next) {
   models._init(options.dbConnection).then((done) => {
-    console.log("done")
-
     delete models._init;
 
     for (let model in models ) {
@@ -24,7 +22,6 @@ function fastifyMysql (fastify, options, next) {
 
     fastify.decorate('models', models)
 
-    console.log("Here Finally")
     next()
   }).catch((err) => {
     console.log(err, "ERROR")

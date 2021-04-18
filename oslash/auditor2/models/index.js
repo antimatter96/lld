@@ -19,8 +19,8 @@ module.exports = {
       resolve();
     })
   },
-  Users: Users,
+  User: Users,
   AuditLog: AuditLog,
   DelayedJob: DelayedJob,
-  Posts: Posts
+  Post: Posts
 };

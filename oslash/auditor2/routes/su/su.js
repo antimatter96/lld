@@ -1,12 +1,10 @@
-'use strict'
-
 module.exports = async function (fastify, opts) {
-  fastify.get('/post/:id', async function (request, reply) {
+  fastify.get('/actions/list', async function (request, reply) {
     console.log(fastify.models.Posts.create)
     return 'this is an example'
   });
 
-  fastify.post('/post/create', async function (request, reply) {
+  fastify.post('/actions/approve', async function (request, reply) {
     //console.log(request.body);
     try {
       await fastify.models.AuditLog.create({
@@ -20,7 +18,7 @@ module.exports = async function (fastify, opts) {
         content : JSON.stringify(request.body.content),
       }
 
-      let post = await fastify.models.Post.create(params)
+      let post = await fastify.models.Posts.create(params)
 
       await fastify.models.AuditLog.create({
         'action': "CREATED",

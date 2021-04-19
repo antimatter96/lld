@@ -3,18 +3,18 @@
 const fp = require('fastify-plugin')
 const models = require('../models/index')
 
-function fastifyMysql (fastify, options, next) {
+function fastifyMysql(fastify, options, next) {
   models._init(options.dbConnection).then((done) => {
     delete models._init;
 
-    for (let model in models ) {
+    for (let model in models) {
       delete models[model].init
       models[model] = models[model].model
     }
 
     fastify.addHook('onClose', (fastify, done) => {
       options.dbConnection.close()
-        .then(() => { 
+        .then(() => {
           console.log("Closed db connections");
           done;
         }).catch(done)

@@ -1,4 +1,19 @@
+const { requestContext } = require('fastify-request-context')
+
+
 module.exports = async function (fastify, opts) {
+  fastify.addHook('preHandler', async (request, reply) => {
+    const user = requestContext.get('user');
+
+    if (user.role != 'admin' || user.role != 'super_admin') {
+      reply.code(401).send({
+        status: "ERROR",
+        error: "You need to be an admin",
+      })
+      return
+    }
+  })
+
   fastify.get('/post/:id', async function (request, reply) {
     console.log(fastify.models.Posts.create)
     return 'this is an example'

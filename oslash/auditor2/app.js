@@ -1,6 +1,7 @@
 'use strict'
 
 const fastify = require('fastify')
+const { fastifyRequestContextPlugin } = require('fastify-request-context')
 const path = require('path')
 const AutoLoad = require('fastify-autoload')
 
@@ -8,6 +9,10 @@ var db = require('./db/db');
 
 module.exports = async function (fastify, opts) {
   opts.dbConnection = db;
+
+  fastify.register(require('middie'))
+
+  fastify.register(fastifyRequestContextPlugin);
 
   // Place here your custom code!
 

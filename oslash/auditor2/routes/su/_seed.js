@@ -1,3 +1,5 @@
+const { requestContext } = require('fastify-request-context')
+
 module.exports = async function (fastify, opts) {
   fastify.post('/_seed', async function (request, reply) {
     try {

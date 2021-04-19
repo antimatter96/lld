@@ -10,7 +10,8 @@ async function init(sequelize) {
           "approved", "done"),
         defaultValue: "pending"
       },
-      approvedAt: DataTypes.TIME,
+      postId : DataTypes.INTEGER,
+      approvedAt: DataTypes.DATE,
       content: DataTypes.STRING,
       action: { 
         type:DataTypes.STRING, allowNull:false

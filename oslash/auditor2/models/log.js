@@ -9,7 +9,9 @@ async function init(sequelize) {
       postId: DataTypes.INTEGER,
       content: DataTypes.STRING
     }, {
-      sequelize, modelName: 'audit_log'
+      sequelize,
+      modelName: 'audit_log',
+      paranoid: true,
     });
     resolve()
   });

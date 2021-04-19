@@ -1,6 +1,5 @@
 'use strict'
 
-const fastify = require('fastify')
 const { fastifyRequestContextPlugin } = require('fastify-request-context')
 const path = require('path')
 const AutoLoad = require('fastify-autoload')
